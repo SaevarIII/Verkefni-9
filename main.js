@@ -22,6 +22,7 @@ const products = [
   },
 ];
 
+
 /** Bæta vöru í körfu */
 function addProductToCart(product, quantity) {
   // Hér þarf að finna `<tbody>` í töflu og setja `cartLine` inn í það
@@ -43,28 +44,26 @@ function addProductToCart(product, quantity) {
 }
 
 function submitHandler(event) {
-  // Komum í veg fyrir að form submiti
   event.preventDefault();
   
-  // Finnum næsta element sem er `<tr>`
   const parent = event.target.closest('tr')
 
-  // Það er með attribute sem tiltekur auðkenni vöru, t.d. `data-product-id="1"`
   const productId = Number.parseInt(parent.dataset.productId);
 
-  // Finnum vöru með þessu productId
   const product = products.find((i) => i.id === productId);
 
-  // TODO hér þarf að finna fjölda sem á að bæta við körfu með því að athuga
-  // á input
   const quantity = 1;
 
-  // Bætum vöru í körfu (hér væri gott að bæta við athugun á því að varan sé til)
   addProductToCart(product, quantity);
 }
 
 // Finna öll form með class="add"
-const addToCartForms = document.querySelectorAll('.add')
+const addToCartForms = document.querySelectorAll('.add') 
+
+
+function createAddToCartForm(form){
+  form.addEventListener('submit', submitHandler)
+}
 
 // Ítra í gegnum þau sem fylki (`querySelectorAll` skilar NodeList)
 for (const form of Array.from(addToCartForms)) {
